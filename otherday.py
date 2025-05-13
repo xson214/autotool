@@ -20,7 +20,7 @@ PACKAGE_NAME2 = "com.excelliance.dualaid"
 SCREENSHOT_PATH = "screenshot.png"
 PLUS_ICON_TEMPLATE = "addButton.png"
 X_ICON_TEMPLATE = "X_button.png"
-
+PROFILE_ICON_TEMPLATE = "profile_icon.png"
 pyautogui.PAUSE = 0.5
 
 
@@ -186,6 +186,20 @@ def click_x_icon():
         print("[x] Không thể nhấn vào biểu tượng 'x' vì không tìm thấy.")
         return False
 
+def click_profile_icon():
+    print("[+] Đang tìm và nhấn vào biểu tượng 'profile'...")
+    screenshot_path = capture_screenshot()
+    position = detect_icon(screenshot_path, PROFILE_ICON_TEMPLATE)
+
+    if position:
+        x, y = position
+        pyautogui.moveTo(x, y)
+        pyautogui.click()
+        print("[✓] Đã nhấn vào biểu tượng 'profile'")
+        return True
+    else:
+        print("[x] Không thể nhấn vào biểu tượng 'profile' vì không tìm thấy.")
+        return False
 
 def scroll_y(distance=300, duration=300):
     print(f"[+] Thực hiện scroll theo chiều Y, khoảng cách: {distance}px")
@@ -207,7 +221,7 @@ def main():
     start_ldplayer()
     time.sleep(30)
 
-    start_piccoma()
+    start_piccoma() 
     time.sleep(10)
 
     # Lặp nhấn X nếu còn xuất hiện
@@ -216,7 +230,7 @@ def main():
             break
         time.sleep(3)
 
-    click_button_by_text("マイページ")
+    click_profile_icon()
     time.sleep(5)
 
     scroll_y(500)  # Scroll xuống 500 pixel
